@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Day 3 - 메시지 입력</title>
+    <title>Day 4 - 닉네임 기능</title>
     <style>
       body {
         font-family: "Arial", sans-serif;
@@ -38,7 +38,7 @@
     </style>
   </head>
   <body>
-    <h1>💬 채팅 입력 테스트</h1>
+    <h1>💬 닉네임 채팅 테스트</h1>
 
     <div id="chat">
       <input type="text" id="msgInput" placeholder="메시지를 입력하세요" />
@@ -48,6 +48,13 @@
     </div>
 
     <script>
+      // 처음 페이지가 열리면 닉네임 입력 요청
+      let nickname = "";
+
+      while (!nickname) {
+        nickname = prompt("닉네임을 입력하세요:");
+      }
+
       function sendMessage() {
         const input = document.getElementById("msgInput");
         const message = input.value;
@@ -56,7 +63,7 @@
 
         const msgBox = document.createElement("div");
         msgBox.className = "message";
-        msgBox.textContent = "나: " + message;
+        msgBox.textContent = nickname + ": " + message;
 
         document.getElementById("messageList").appendChild(msgBox);
 
