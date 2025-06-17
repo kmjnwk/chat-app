@@ -2,43 +2,67 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>🎉너 그럼 진짜 정신 차려야 되는 거 아니야 🎉</title>
+    <title>Day 3 - 메시지 입력</title>
     <style>
       body {
-        background-color: #f0f8ff;
         font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        padding: 30px;
         text-align: center;
-        margin-top: 100px;
-        color: #333;
       }
       h1 {
-        font-size: 40px;
         color: #2a9d8f;
       }
-      p {
-        font-size: 18px;
+      #chat {
+        margin-top: 30px;
+      }
+      input {
+        padding: 10px;
+        font-size: 16px;
+        width: 250px;
       }
       button {
-        padding: 10px 20px;
+        padding: 10px;
         font-size: 16px;
-        background-color: #e76f51;
+        background-color: #2a9d8f;
         color: white;
         border: none;
-        border-radius: 8px;
+        border-radius: 6px;
         cursor: pointer;
-        margin-top: 20px;
+        margin-left: 10px;
       }
-      button:hover {
-        background-color: #f4a261;
+      .message {
+        margin-top: 10px;
+        font-size: 18px;
       }
     </style>
   </head>
   <body>
-    <h1>👋이따위 꼬라지로 언제까지 살 거냐고👋</h1>
-    <p>
-      생각해 보니 <br />
-      평생 살아옴ㅋ
-    </p>
-    <button onclick="alert('누르지 말라고 했잖아!')">누르지 마시오</button>
+    <h1>💬 채팅 입력 테스트</h1>
+
+    <div id="chat">
+      <input type="text" id="msgInput" placeholder="메시지를 입력하세요" />
+      <button onclick="sendMessage()">전송</button>
+
+      <div id="messageList"></div>
+    </div>
+
+    <script>
+      function sendMessage() {
+        const input = document.getElementById("msgInput");
+        const message = input.value;
+
+        if (message.trim() === "") return;
+
+        const msgBox = document.createElement("div");
+        msgBox.className = "message";
+        msgBox.textContent = "나: " + message;
+
+        document.getElementById("messageList").appendChild(msgBox);
+
+        input.value = "";
+        input.focus();
+      }
+    </script>
   </body>
 </html>
