@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Day 4 - 닉네임 기능</title>
+    <title>Day 5 - 메시지 구조 분리</title>
     <style>
       body {
         font-family: "Arial", sans-serif;
@@ -10,17 +10,13 @@
         padding: 30px;
         text-align: center;
       }
-      h1 {
-        color: #2a9d8f;
-      }
-      #chat {
-        margin-top: 30px;
-      }
+
       input {
         padding: 10px;
         font-size: 16px;
         width: 250px;
       }
+
       button {
         padding: 10px;
         font-size: 16px;
@@ -31,9 +27,29 @@
         cursor: pointer;
         margin-left: 10px;
       }
-      .message {
-        margin-top: 10px;
-        font-size: 18px;
+
+      /* ✅ Day5에 추가된 CSS */
+      .chatItem {
+        background-color: white;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        margin-top: 15px;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+      }
+
+      .nickname {
+        font-weight: bold;
+        color: #2a9d8f;
+        margin-bottom: 4px;
+      }
+
+      .content {
+        font-size: 16px;
+        color: #333;
       }
     </style>
   </head>
@@ -48,9 +64,8 @@
     </div>
 
     <script>
-      // 처음 페이지가 열리면 닉네임 입력 요청
+      // 페이지 처음 열리면 닉네임 받기
       let nickname = "";
-
       while (!nickname) {
         nickname = prompt("닉네임을 입력하세요:");
       }
@@ -61,12 +76,28 @@
 
         if (message.trim() === "") return;
 
-        const msgBox = document.createElement("div");
-        msgBox.className = "message";
-        msgBox.textContent = nickname + ": " + message;
+        // 전체 메시지 박스
+        const msgItem = document.createElement("div");
+        msgItem.className = "chatItem";
 
-        document.getElementById("messageList").appendChild(msgBox);
+        // 닉네임
+        const nick = document.createElement("div");
+        nick.className = "nickname";
+        nick.textContent = "👤 " + nickname;
 
+        // 내용
+        const content = document.createElement("div");
+        content.className = "content";
+        content.textContent = "💬 " + message;
+
+        // 구조 결합
+        msgItem.appendChild(nick);
+        msgItem.appendChild(content);
+
+        // 메시지 리스트에 추가
+        document.getElementById("messageList").appendChild(msgItem);
+
+        // 입력창 초기화 및 커서 유지
         input.value = "";
         input.focus();
       }
