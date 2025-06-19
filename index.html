@@ -1,106 +1,114 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Day 5 - 메시지 구조 분리</title>
-    <style>
-      body {
-        font-family: "Arial", sans-serif;
-        background-color: #f4f4f4;
-        padding: 30px;
-        text-align: center;
+<head>
+  <meta charset="UTF-8" />
+  <title>Day 6 - Enter 키 전송</title>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      background-color: #f4f4f4;
+      padding: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #264653;
+    }
+
+    #chat {
+      margin-top: 30px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 16px;
+      background-color: #2a9d8f;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .chatItem {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      margin-top: 10px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+
+    .nickname {
+      font-weight: bold;
+      color: #2a9d8f;
+      margin-bottom: 5px;
+    }
+
+    .content {
+      font-size: 16px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>💬 닉네임 채팅 테스트</h1>
+
+  <div id="chat">
+    <input type="text" id="msgInput" placeholder="메시지를 입력하세요" />
+    <button onclick="sendMessage()">전송</button>
+    <div id="messageList"></div>
+  </div>
+
+  <script>
+    // 닉네임 입력
+    let nickname = "";
+    while (!nickname) {
+      nickname = prompt("닉네임을 입력하세요:");
+    }
+
+    // 메시지 전송 함수
+    function sendMessage() {
+      const input = document.getElementById("msgInput");
+      const message = input.value;
+
+      if (message.trim() === "") return;
+
+      const msgItem = document.createElement("div");
+      msgItem.className = "chatItem";
+
+      const nick = document.createElement("div");
+      nick.className = "nickname";
+      nick.textContent = "👤 " + nickname;
+
+      const content = document.createElement("div");
+      content.className = "content";
+      content.textContent = "💬 " + message;
+
+      msgItem.appendChild(nick);
+      msgItem.appendChild(content);
+
+      document.getElementById("messageList").appendChild(msgItem);
+
+      input.value = "";
+      input.focus();
+    }
+
+    // Enter 키로도 메시지 전송
+    document.getElementById("msgInput").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        sendMessage();
       }
-
-      input {
-        padding: 10px;
-        font-size: 16px;
-        width: 250px;
-      }
-
-      button {
-        padding: 10px;
-        font-size: 16px;
-        background-color: #2a9d8f;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        margin-left: 10px;
-      }
-
-      /* ✅ Day5에 추가된 CSS */
-      .chatItem {
-        background-color: white;
-        padding: 10px;
-        border-radius: 8px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-        margin-top: 15px;
-        max-width: 300px;
-        margin-left: auto;
-        margin-right: auto;
-        text-align: left;
-      }
-
-      .nickname {
-        font-weight: bold;
-        color: #2a9d8f;
-        margin-bottom: 4px;
-      }
-
-      .content {
-        font-size: 16px;
-        color: #333;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>💬 닉네임 채팅 테스트</h1>
-
-    <div id="chat">
-      <input type="text" id="msgInput" placeholder="메시지를 입력하세요" />
-      <button onclick="sendMessage()">전송</button>
-
-      <div id="messageList"></div>
-    </div>
-
-    <script>
-      // 페이지 처음 열리면 닉네임 받기
-      let nickname = "";
-      while (!nickname) {
-        nickname = prompt("닉네임을 입력하세요:");
-      }
-
-      function sendMessage() {
-        const input = document.getElementById("msgInput");
-        const message = input.value;
-
-        if (message.trim() === "") return;
-
-        // 전체 메시지 박스
-        const msgItem = document.createElement("div");
-        msgItem.className = "chatItem";
-
-        // 닉네임
-        const nick = document.createElement("div");
-        nick.className = "nickname";
-        nick.textContent = "👤 " + nickname;
-
-        // 내용
-        const content = document.createElement("div");
-        content.className = "content";
-        content.textContent = "💬 " + message;
-
-        // 구조 결합
-        msgItem.appendChild(nick);
-        msgItem.appendChild(content);
-
-        // 메시지 리스트에 추가
-        document.getElementById("messageList").appendChild(msgItem);
-
-        // 입력창 초기화 및 커서 유지
-        input.value = "";
-        input.focus();
-      }
-    </script>
-  </body>
+    });
+  </script>
+</body>
 </html>
